@@ -1,0 +1,87 @@
+import wpilib
+import CIP6001
+from wpilib.drive import DifferentialDrive
+ControlDelDriver = {‘B1’:1, ‘B2’:2, ‘B3’:3, ‘B4’:4, ‘B5’:5, ‘B6’:6 ‘B7’:7, ‘B8’:8, ‘B9’:9, ‘B10’:10, ‘B11’:11}
+
+class MyRobot(wpilib.SampleRobot):
+   '''Main robot class'''
+  
+   def robotInit(self):
+       self.lstick=wpilib.Joystick(0)
+       self.motor_Rodillos=wpilib.VictorSP(0)
+       self.motor_RuedasLanzamiento=wpilib.VictorSP(1)
+       self.motor_CajaDeReduccionDe=wpilib.VictorSP(2)
+       self.motor_CajaDeReduccionIz=wpilib.VictorSP(3)
+       self.motor_Enrolla=wpilib.VictorSP(4)
+       self.motor_DriveTrainDe=wpilib.VictorSP(5)
+       self.motor_DriveTrainIz=wpilib.VictorSP(6)
+	     self.G_motor=SpeedControllerGroup(self.motor_CajaDeReduccionDe, self.motor_CajaDeReduccionIz)
+
+       self.FinalCarreraGancho1=wpilib.DigitalInput(0)
+       self.FinalCarreraGancho2=wpilib.DigitalInput(1)
+       self.FinalCarreraTope=wpilib.DigitalInput(2)
+      
+
+       
+      
+   def disabled(self):
+       '''Called when the robot is disabled'''
+       while self.isDisabled():
+           wpilib.Timer.delay(0.01)
+
+   def autonomous(self):
+      
+       while self.isAutonomous() and self.isEnabled():
+           wpilib.Timer.delay(0.01)
+
+   def operatorControl(self):
+       '''Called when operation control mode is enabled'''
+
+
+       timer = wpilib.Timer()
+       timer.start()
+
+       while self.isOperatorControl() and self.isEnabled():
+
+		      if self.lstick.GetRawButtonPressed(ControlDelDriver['B2']):
+			       self.motor_Rodillos.set(1)
+          if self.lstick.GetRawButtonReleased(ControlDelDriver['B2']):
+			       self.motor_Rodillos.set(0)
+             
+          if self.lstick.getRawButtonPressed (ControlDelDriver['B1']):
+             self.motor_RuedasLanzamiento.set(1)  
+          if self.lstick.getRawButtonReleased(ControlDelDriver)['B1']):
+	           self.motor_RuedasLanzamiento.set(0)  
+
+
+ 	        if self.lstick.GetRawButtonPressed(ControlDelDriver['B5']):
+             self.motor_Enrolla.set(1)         
+          if self.lstick.GetRawButtonReleased(ControlDelDriver['B5']):
+             self.motor_Enrolla.set(0)       
+
+          if self.lstick.GetRawButtonPressed(controlDelDriver['B3']):
+              self.G_motor.set(-0.7)
+	          if self.FinalCarreraTope(1):
+		          self.G_motor.set(0)
+#Revisar si se pone así “(1)” que el final de carrera está activado
+
+          if self.finalCarrera1.get(1) and self.finalCarrera2.get(1):
+             self.G_motor.set(-0.5)
+	        if self.lstick.GetRawButtonPressed(controlDelDriver['B6']:
+		         self.G_motor.set(0)
+		
+ 
+
+
+           # Move a motor with a Joystick
+           self.motor.set(self.lstick.getY())
+
+           if timer.hasPeriodPassed(1.0):
+               print("Analog 8: %s" % self.ds.getBatteryVoltage())
+
+           wpilib.Timer.delay(0.02)
+
+
+if __name__ == '__main__':
+   wpilib.run(MyRobot)
+
