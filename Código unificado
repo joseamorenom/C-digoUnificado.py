@@ -54,7 +54,7 @@ class MyRobot(wpilib.SampleRobot):
 	           self.motor_RuedasLanzamiento.set(0)  
 
 
- 	        if self.lstick.GetRawButtonPressed(ControlDelDriver['B5']):
+ 	  if self.lstick.GetRawButtonPressed(ControlDelDriver['B5']):
              self.motor_Enrolla.set(1)         
           if self.lstick.GetRawButtonReleased(ControlDelDriver['B5']):
              self.motor_Enrolla.set(0)       
@@ -63,7 +63,7 @@ class MyRobot(wpilib.SampleRobot):
               self.G_motor.set(-0.7)
 	          if self.FinalCarreraTope(1):
 		          self.G_motor.set(0)
-#Revisar si se pone así “(1)” que el final de carrera está activado
+  #Revisar si se pone así “(1)” que el final de carrera está activado
 
           if self.finalCarrera1.get(1) and self.finalCarrera2.get(1):
              self.G_motor.set(-0.5)
