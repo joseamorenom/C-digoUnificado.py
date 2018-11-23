@@ -57,6 +57,7 @@ class MyRobot(wpilib.SampleRobot):
         
                 if self.FinalCarreraTope.get()==True:
                     self.G_motor.set(0)
+            else self.G_motor.set(0)
 
             if self.FinalCarreraGancho1.get()==True and self.FinalCarreraGancho2.get()==True:
                 self.G_motor.set(-0.5)
